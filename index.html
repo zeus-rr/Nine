@@ -7,304 +7,121 @@
   <link rel="apple-touch-icon" href="https://zeus-rr.github.io/Nine/iconer.ico">
   <title>Gerador de Série de Pilates - Anamnese</title>
 
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            bg: { light: '#f5f9fb', dark: '#1a1c21' },
+            card: { light: '#ffffff', dark: '#24282f' },
+            accent: { light: '#1168b1', dark: '#53a8ff' },
+            muted: { light: '#556', dark: '#a7b0c0' },
+            text: { light: '#122', dark: '#e6f0ff' },
+            border: { light: '#e6eef5', dark: '#333a44' },
+          },
+          boxShadow: {
+            soft: '0 8px 24px rgba(17, 104, 177, 0.07)',
+            dark: '0 4px 16px rgba(0, 0, 0, 0.4)',
+          },
+          borderRadius: {
+            xl: '12px',
+          },
+        },
+      },
+    }
+  </script>
+
   <style>
-    /* -------------------------
-       VARIÁVEIS E TEMA PADRÃO
-    --------------------------*/
-    :root {
-      --bg: #f5f9fb;
-      --card: #ffffff;
-      --accent: #1168b1;
-      --muted: #556;
-      --text: #122;
-      --input-bg: #fff;
-      --input-border: #e6eef5;
-      --radius: 12px;
-      --shadow: 0 8px 24px rgba(17, 104, 177, 0.07);
-      --ex-bg: #fbfeff;
-      --ex-border: rgba(0, 0, 0, 0.03);
-      --ghost-border: rgba(17, 104, 177, 0.12);
-      --transition: all 0.25s ease;
-    }
-
-    /* Tema escuro */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #1a1c21;
-        --card: #24282f;
-        --accent: #53a8ff;
-        --muted: #a7b0c0;
-        --text: #e6f0ff;
-        --input-bg: #1a1c21;
-        --input-border: #333a44;
-        --shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-        --ex-bg: #2b3038;
-        --ex-border: rgba(255, 255, 255, 0.08);
-        --ghost-border: rgba(83, 168, 255, 0.2);
-      }
-    }
-
-    .dark-mode {
-      --bg: #1a1c21;
-      --card: #24282f;
-      --accent: #53a8ff;
-      --muted: #a7b0c0;
-      --text: #e6f0ff;
-      --input-bg: #1a1c21;
-      --input-border: #333a44;
-      --shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-      --ex-bg: #2b3038;
-      --ex-border: rgba(255, 255, 255, 0.08);
-      --ghost-border: rgba(83, 168, 255, 0.2);
-    }
-
-    /* -------------------------
-       ESTILOS BASE
-    --------------------------*/
     body {
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-      background: var(--bg);
-      color: var(--text);
-      margin: 0;
-      padding: 1rem;
-      line-height: 1.5;
-      transition: var(--transition);
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    header {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    header img {
-      width: 48px;
-      height: 36px;
-      border-radius: 6px;
-      object-fit: contain;
-    }
-
-    header h1 {
-      font-size: clamp(1.2rem, 2vw, 1.6rem);
-      color: var(--accent);
-      margin: 0;
-    }
-
-    p.lead {
-      color: var(--muted);
-      font-size: clamp(0.9rem, 1.5vw, 1rem);
-      margin: 0.3rem 0 0;
-    }
-
-    .header-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: center;
-    }
-
-    /* -------------------------
-       BOTÕES
-    --------------------------*/
-    .btn, a.btn {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      padding: 10px 14px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 700;
-      text-decoration: none;
-      text-align: center;
-      transition: var(--transition);
-    }
-
-    .btn:hover { opacity: 0.9; transform: translateY(-1px); }
-    .btn.ghost {
-      background: transparent;
-      color: var(--accent);
-      border: 1px solid var(--ghost-border);
-      box-shadow: none;
-      font-weight: 600;
-    }
-
-    /* -------------------------
-       LAYOUT RESPONSIVO
-    --------------------------*/
-    .layout {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    @media (min-width: 960px) {
-      .layout {
-        grid-template-columns: 360px 1fr;
-      }
-    }
-
-    .card {
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      border: 1px solid var(--ex-border);
-      padding: 1rem;
-      transition: var(--transition);
-    }
-
-    label {
-      display: block;
-      font-weight: 600;
-      margin-top: 0.6rem;
-      margin-bottom: 0.3rem;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid var(--input-border);
-      background: var(--input-bg);
-      color: var(--text);
-      font-size: 1rem;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 2px rgba(17, 104, 177, 0.1);
-    }
-
-    .small {
-      font-size: 0.9rem;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-    }
-
-    /* -------------------------
-       LISTA DE EXERCÍCIOS
-    --------------------------*/
-    .ex-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 0.8rem;
-    }
-
-    .ex {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      border-radius: 10px;
-      padding: 0.8rem;
-      background: var(--ex-bg);
-      border: 1px solid var(--ex-border);
-      transition: var(--transition);
-    }
-
-    .ex:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 14px rgba(17, 104, 177, 0.1);
-    }
-
-    .ex img {
-      width: 100%;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-
-    .ex h4 {
-      margin: 0;
-      font-size: 1rem;
-      color: var(--accent);
-    }
-
-    .meta {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-
-    .position-info {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    /* -------------------------
-       RODAPÉ
-    --------------------------*/
-    footer {
-      margin-top: 2rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--ex-border);
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 0.6rem;
-      font-size: 0.85rem;
-      color: var(--muted);
-      text-align: center;
-    }
-
-    @media (max-width: 600px) {
-      .header-actions { flex-direction: column; width: 100%; }
-      .btn, .btn.ghost { width: 100%; }
-    }
-
   </style>
 </head>
-<body>
-  <div class="container">
-    <header>
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-        <img src="icone1.png" alt="Logo">
+<body class="bg-bg-light text-text-light dark:bg-bg-dark dark:text-text-dark transition-colors duration-300 min-h-screen p-4">
+  <div class="max-w-6xl mx-auto">
+    <!-- HEADER -->
+    <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
+      <div class="flex items-center gap-3">
+        <img src="icone1.png" alt="Logo" class="w-12 h-10 rounded-md object-contain">
         <div>
-          <h1>Profª JAQUE</h1>
-          <p class="lead">Gerador de Série de Pilates — baseado na Anamnese</p>
+          <h1 class="text-xl sm:text-2xl font-bold text-accent-light dark:text-accent-dark">Profª JAQUE</h1>
+          <p class="text-sm text-muted-light dark:text-muted-dark">Gerador de Série de Pilates — baseado na Anamnese</p>
         </div>
       </div>
 
-      <div class="header-actions">
-        <button id="btnToggleTheme" class="btn ghost" title="Alternar tema">&#9788;</button>
-        <a href="https://zeus-rr.github.io/docspdf/" target="_blank" class="btn ghost">Documentação</a>
-        <button id="btnGenerate" class="btn">Gerar Série</button>
-        <button id="btnPdf" class="btn">Baixar PDF</button>
+      <div class="flex flex-wrap gap-2 justify-center">
+        <button id="btnToggleTheme" class="border border-accent-light dark:border-accent-dark text-accent-light dark:text-accent-dark font-semibold rounded-lg px-4 py-2 hover:opacity-90 transition">&#9788;</button>
+        <a href="https://zeus-rr.github.io/docspdf/" target="_blank" class="border border-accent-light dark:border-accent-dark text-accent-light dark:text-accent-dark font-semibold rounded-lg px-4 py-2 hover:opacity-90 transition">Documentação</a>
+        <button id="btnGenerate" class="bg-accent-light dark:bg-accent-dark text-white font-bold rounded-lg px-4 py-2 hover:opacity-90 transition">Gerar Série</button>
+        <button id="btnPdf" class="bg-accent-light dark:bg-accent-dark text-white font-bold rounded-lg px-4 py-2 hover:opacity-90 transition">Baixar PDF</button>
       </div>
     </header>
 
-    <div class="layout">
-      <aside class="card"> ... </aside>
-      <main> ... </main>
+    <!-- LAYOUT -->
+    <div class="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-4">
+      <!-- SIDEBAR -->
+      <aside class="bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark shadow-soft dark:shadow-dark rounded-xl p-4">
+        <h2 class="text-lg font-semibold text-accent-light dark:text-accent-dark mb-3">Dados do Aluno</h2>
+
+        <label class="font-semibold">Nome</label>
+        <input type="text" class="w-full p-2 rounded-md border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark text-text-light dark:text-text-dark focus:ring-2 focus:ring-accent-light dark:focus:ring-accent-dark outline-none">
+
+        <label class="font-semibold mt-3">Objetivo</label>
+        <select class="w-full p-2 rounded-md border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark">
+          <option>Condicionamento</option>
+          <option>Reabilitação</option>
+          <option>Estética</option>
+        </select>
+      </aside>
+
+      <!-- MAIN -->
+      <main class="bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark shadow-soft dark:shadow-dark rounded-xl p-4">
+        <h2 class="text-lg font-semibold text-accent-light dark:text-accent-dark mb-3">Lista de Exercícios</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div class="flex flex-col gap-2 bg-bg-light dark:bg-bg-dark border border-border-light dark:border-border-dark rounded-lg p-3 hover:-translate-y-1 transition-transform">
+            <img src="https://picsum.photos/300/180?1" alt="Exercício" class="w-full h-32 object-cover rounded-md">
+            <h4 class="font-bold text-accent-light dark:text-accent-dark">Prancha</h4>
+            <p class="text-sm text-muted-light dark:text-muted-dark">Fortalece o core e melhora a estabilidade.</p>
+          </div>
+
+          <div class="flex flex-col gap-2 bg-bg-light dark:bg-bg-dark border border-border-light dark:border-border-dark rounded-lg p-3 hover:-translate-y-1 transition-transform">
+            <img src="https://picsum.photos/300/180?2" alt="Exercício" class="w-full h-32 object-cover rounded-md">
+            <h4 class="font-bold text-accent-light dark:text-accent-dark">Ponte de Ombros</h4>
+            <p class="text-sm text-muted-light dark:text-muted-dark">Trabalha glúteos e região lombar.</p>
+          </div>
+
+          <div class="flex flex-col gap-2 bg-bg-light dark:bg-bg-dark border border-border-light dark:border-border-dark rounded-lg p-3 hover:-translate-y-1 transition-transform">
+            <img src="https://picsum.photos/300/180?3" alt="Exercício" class="w-full h-32 object-cover rounded-md">
+            <h4 class="font-bold text-accent-light dark:text-accent-dark">Teaser</h4>
+            <p class="text-sm text-muted-light dark:text-muted-dark">Melhora controle abdominal e equilíbrio.</p>
+          </div>
+        </div>
+      </main>
     </div>
 
-    <footer>
+    <!-- FOOTER -->
+    <footer class="flex flex-wrap justify-between items-center border-t border-border-light dark:border-border-dark mt-8 pt-4 text-sm text-muted-light dark:text-muted-dark text-center gap-2">
       <div>PDF gerado localmente pelo navegador (jsPDF). Algumas imagens podem ser omitidas por CORS.</div>
       <div>© Gerador de Séries — Pilates</div>
     </footer>
   </div>
 
   <script>
-    // Tema claro/escuro com persistência
+    // Alternância manual do tema
     const btnToggleTheme = document.getElementById('btnToggleTheme');
     const body = document.body;
 
-    function toggleTheme() {
-      body.classList.toggle('dark-mode');
-      localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
-    }
+    btnToggleTheme.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+    });
 
-    btnToggleTheme.addEventListener('click', toggleTheme);
-
-    // Carregar preferência salva
     if (localStorage.getItem('theme') === 'dark') {
-      body.classList.add('dark-mode');
+      body.classList.add('dark');
     }
   </script>
 </body>
