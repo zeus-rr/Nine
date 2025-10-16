@@ -1,605 +1,196 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-	<link rel="icon" href="https://zeus-rr.github.io/Nine/iconer.ico">
-  <link rel="apple-touch-icon" href="https://zeus-rr.github.io/Nine/iconer.ico">
-  <link rel="shortcut icon" href="https://zeus-rr.github.io/Nine/iconer.ico">
-  <title>Gerador de Série de Pilates - Anamnese</title>
-  <style>
-    /* VARIÁVEIS DO TEMA PADRÃO (CLARO) */
-    :root{
-      --bg:#f5f9fb; --card:#ffffff; --accent:#1168b1; --muted:#556; --text:#122; --input-bg:#fff; --input-border:#e6eef5;
-      --radius:12px;
-      --shadow: 0 8px 24px rgba(17,104,177,0.07);
-      --ex-bg: #fbfeff;
-      --ex-border: rgba(0,0,0,0.03);
-      --ghost-border: rgba(17,104,177,0.12);
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" href="https://zeus-rr.github.io/Nine/iconer.ico">
+<link rel="apple-touch-icon" href="https://zeus-rr.github.io/Nine/iconer.ico">
+<link rel="shortcut icon" href="https://zeus-rr.github.io/Nine/iconer.ico">
+<title>Nine - Gerador de Pilates</title>
 
-    /* TEMA ESCURO (DARK MODE) */
-    .dark-mode{
-      --bg:#1a1c21; --card:#24282f; --accent:#53a8ff; --muted:#a7b0c0; --text:#e6f0ff; --input-bg:#1a1c21; --input-border:#333a44;
-      --shadow: 0 4px 16px rgba(0,0,0,0.4);
-      --ex-bg: #2b3038;
-      --ex-border: rgba(255,255,255,0.08);
-      --ghost-border: rgba(83,168,255,0.2);
-    }
+<style>
+  /* VARIÁVEIS DE TEMA */
+  :root{
+    --bg:#f5f9fb; --card:#ffffff; --accent:#1168b1; --muted:#556; --text:#122; --input-bg:#fff; --input-border:#e6eef5;
+    --radius:12px;
+    --shadow: 0 8px 24px rgba(17,104,177,0.07);
+    --ex-bg: #fbfeff;
+    --ex-border: rgba(0,0,0,0.03);
+    --ghost-border: rgba(17,104,177,0.12);
+  }
+  .dark-mode{
+    --bg:#1a1c21; --card:#24282f; --accent:#53a8ff; --muted:#a7b0c0; --text:#e6f0ff; --input-bg:#1a1c21; --input-border:#333a44;
+    --shadow: 0 4px 16px rgba(0,0,0,0.4);
+    --ex-bg: #2b3038;
+    --ex-border: rgba(255,255,255,0.08);
+    --ghost-border: rgba(83,168,255,0.2);
+  }
 
-    /* ESTILOS BASE */
-    body{font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:var(--bg); color:var(--text); margin:16px;}
-    .container{max-width:1100px;margin:0 auto;}
-    header{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:18px;}
-    h1{color:var(--accent);margin:0;font-size:1.4rem;}
-    p.lead{margin:6px 0 0;color:var(--muted);font-size:0.95rem;}
-    
-    /* LAYOUT PRINCIPAL - 2 COLUNAS (Desktop) */
-    .layout{display:grid;grid-template-columns:360px 1fr;gap:16px;}
-    
-    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;border:1px solid rgba(0,0,0,0.03);}
-    .dark-mode .card{border:1px solid var(--ex-border);}
+  body{font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:var(--bg); color:var(--text); margin:16px;}
+  .container{max-width:1100px;margin:0 auto;}
+  header{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:18px;}
+  h1{color:var(--accent);margin:0;font-size:1.4rem;}
+  p.lead{margin:6px 0 0;color:var(--muted);font-size:0.95rem;}
 
-    label{display:block;margin-bottom:6px;font-weight:600;color:var(--text);}
-    input[type="text"], input[type="number"], select, textarea{width:100%;padding:8px;border-radius:8px;border:1px solid var(--input-border);background:var(--input-bg); color:var(--text);}
-    .small{font-size:0.9rem;color:var(--muted);margin-bottom:8px;}
-    
-    /* BOTÕES */
-    .btn, a.btn{
-      background:var(--accent);color:#fff;border:none;padding:10px 12px;border-radius:10px;cursor:pointer;font-weight:700;box-shadow:0 8px 18px rgba(17,104,177,0.12);
-      text-decoration: none; 
-      display: inline-block; 
-      text-align: center;
-      transition: background 0.2s;
-    }
-    .btn:hover, a.btn:hover { opacity: 0.9; }
-    .btn.ghost, a.btn.ghost{
-      background:transparent;color:var(--accent);border:1px solid var(--ghost-border);box-shadow:none;
-      padding: 6px 10px; 
-      font-size: 0.85rem;
-    }
+  /* Layout 2 colunas */
+  .layout{display:grid;grid-template-columns:360px 1fr;gap:16px;}
+  .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;border:1px solid rgba(0,0,0,0.03);}
+  .dark-mode .card{border:1px solid var(--ex-border);}
+  label{display:block;margin-bottom:6px;font-weight:600;color:var(--text);}
+  input[type="text"], input[type="number"], select, textarea{width:100%;padding:8px;border-radius:8px;border:1px solid var(--input-border);background:var(--input-bg); color:var(--text);}
+  .small{font-size:0.9rem;color:var(--muted);margin-bottom:8px;}
 
-    /* LISTA DE EXERCÍCIOS - RESPONSIVA POR PADRÃO (minmax) */
-    .ex-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:12px;}
-    .ex{display:flex;gap:10px;align-items:flex-start;border-radius:10px;padding:8px;background:var(--ex-bg);border:1px solid var(--ex-border); flex-direction: column;}
-    .ex img{width:100%;height:100px;object-fit:cover;border-radius:8px; margin-bottom: 6px;}
-    .ex h4{margin:0;font-size:0.95rem;color:var(--accent);}
-    .meta{font-size:0.85rem;color:var(--muted); margin-bottom: 4px;}
-    .position-info { display: flex; flex-direction: column; font-size: 0.8rem; color: var(--muted); gap: 4px; margin-bottom: 8px;}
-    .position-info span { font-weight: 600; color: var(--text); }
-    .preview{margin-top:12px;}
-    .preview-item{display:flex;gap:10px;align-items:center;padding:8px;border-radius:8px;background:var(--input-bg);border:1px solid var(--ex-border); margin-bottom: 4px;}
-    
-    /* Ações do cabeçalho */
-    .header-actions { display: flex; gap: 8px; align-items: center; }
-    
-    footer{margin-top:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;color:var(--muted);font-size: 0.85rem;}
+  .btn, a.btn{
+    background:var(--accent);color:#fff;border:none;padding:10px 12px;border-radius:10px;cursor:pointer;font-weight:700;box-shadow:0 8px 18px rgba(17,104,177,0.12);
+    text-decoration: none; display: inline-block; text-align: center; transition: background 0.2s;
+  }
+  .btn:hover, a.btn:hover { opacity: 0.9; }
+  .btn.ghost, a.btn.ghost{
+    background:transparent;color:var(--accent);border:1px solid var(--ghost-border);box-shadow:none;
+    padding: 6px 10px; font-size: 0.85rem;
+  }
 
-    
-    /* --- RESPONSIVIDADE --- */
+  .ex-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:12px;}
+  .ex{display:flex;gap:10px;align-items:flex-start;border-radius:10px;padding:8px;background:var(--ex-bg);border:1px solid var(--ex-border); flex-direction: column;}
+  .ex img{width:100%;height:100px;object-fit:cover;border-radius:8px; margin-bottom: 6px; cursor: zoom-in;}
+  .ex h4{margin:0;font-size:0.95rem;color:var(--accent);}
+  .meta{font-size:0.85rem;color:var(--muted); margin-bottom: 4px;}
+  .position-info { display: flex; flex-direction: column; font-size: 0.8rem; color: var(--muted); gap: 4px; margin-bottom: 8px;}
+  .position-info span { font-weight: 600; color: var(--text); }
+  .preview{margin-top:12px;}
+  .preview-item{display:flex;gap:10px;align-items:center;padding:8px;border-radius:8px;background:var(--input-bg);border:1px solid var(--ex-border); margin-bottom: 4px;}
+  .header-actions { display: flex; gap: 8px; align-items: center; }
+  footer{margin-top:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;color:var(--muted);font-size: 0.85rem;}
 
-    /* 1. Tablet e Telas Médias (max-width: 980px) */
-    @media (max-width: 980px) {
-        /* Layout principal muda de 2 colunas para 1 (empilha anamnese sobre exercícios) */
-        .layout {
-            grid-template-columns: 1fr;
-        }
-        /* Header empilha o título e as ações */
-        header {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 12px;
-        }
-        /* Ações do header podem quebrar para a linha de baixo se ficarem muito apertadas */
-        .header-actions {
-            flex-wrap: wrap;
-            width: 100%;
-            justify-content: center; /* Centraliza botões se quebrarem */
-        }
-    }
+  /* Responsividade */
+  @media (max-width: 980px) { .layout { grid-template-columns: 1fr; } header { flex-direction: column; align-items: flex-start; gap: 12px; } .header-actions { flex-wrap: wrap; width: 100%; justify-content: center; } }
+  @media (max-width: 600px) { body { margin: 10px; } h1 { font-size: 1.2rem; } .header-actions { flex-direction: column; gap: 6px; } .header-actions button, .header-actions a.btn { width: 100%; padding: 12px 10px; font-size: 1rem; } .ex-list { grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); } .card { padding: 12px; } footer { flex-direction: column; text-align: center; } }
 
-    /* 2. Mobile (max-width: 600px) */
-    @media (max-width: 600px) {
-        body {
-            margin: 10px; /* Reduz margem geral */
-        }
-        h1 {
-            font-size: 1.2rem; /* Título menor */
-        }
-        /* Ações do header: empilha todos os botões verticalmente */
-        .header-actions {
-            flex-direction: column;
-            gap: 6px;
-        }
-        .header-actions button, .header-actions a.btn {
-            width: 100%; /* Botões de largura total para facilitar o toque */
-            padding: 12px 10px; 
-            font-size: 1rem;
-        }
-        /* Lista de exercícios: permite cards mais estreitos */
-        .ex-list {
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        }
-        .card {
-            padding: 12px;
-        }
-        /* Rodapé: empilha o texto */
-        footer {
-            flex-direction: column;
-            text-align: center;
-        }
-    }
-  </style>
+  /* Modal Zoom */
+  #zoomModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);justify-content:center;align-items:center;z-index:999;}
+  #zoomModal img{max-width:90%;max-height:90%;border-radius:12px;}
+</style>
 </head>
 <body class="">
-  <div class="container">
-    <header>
-      <div>
-	 <img src="icone1.png" width="50" height="35" alt="Imagem Reduzida">
-		<h1>Profª JAQUE</h1>
-        <h1>Gerador de Série de Pilates — baseado na Anamnese</h1>
-        <p class="lead">Preencha a anamnese do aluno e gere automaticamente uma série personalizada com opção de baixar em PDF.</p>
-      </div>
-      <div class="header-actions">
-        <button id="btnToggleTheme" class="btn ghost" title="Alternar Tema Claro/Escuro">&#9788;</button>
-        <a href="https://zeus-rr.github.io/docspdf/" target="_blank" class="btn ghost">Documentação</a>
-        
-        <button id="btnGenerate" class="btn">Gerar Série</button>
-        <button id="btnPdf" class="btn">Baixar Série em PDF</button>
-      </div>
-    </header>
-
-    <div class="layout">
-      <aside class="card" aria-label="Formulário de anamnese">
-        <h3>1 — Anamnese do Aluno</h3>
-        <div class="small">Preencha informações básicas e marque restrições/objetivos.</div>
-
-        <label for="nome">Nome</label>
-        <input id="nome" type="text" placeholder="Nome do aluno" />
-
-        <label for="idade">Idade</label>
-        <input id="idade" type="number" min="6" max="120" />
-
-        <label for="sexo">Sexo</label>
-        <select id="sexo">
-          <option value="">Selecione</option>
-          <option value="feminino">Feminino</option>
-          <option value="masculino">Masculino</option>
-          <option value="outro">Outro/Prefiro não dizer</option>
-        </select>
-
-        <label for="nivel">Nível de condicionamento</label>
-        <select id="nivel">
-          <option value="">Selecione</option>
-          <option value="iniciante">Iniciante</option>
-          <option value="intermediario">Intermediário</option>
-          <option value="avancado">Avançado</option>
-        </select>
-
-        <label for="objetivo">Objetivo principal</label>
-        <select id="objetivo">
-          <option value="">Selecione</option>
-          <option value="forca">Força</option>
-          <option value="alongamento">Alongamento / Flexibilidade</option>
-          <option value="dor-lombar">Alívio de dor lombar</option>
-          <option value="reabilitacao">Reabilitação</option>
-          <option value="postura">Melhora postural</option>
-          <option value="equilibrio">Equilíbrio / Propriocepção</option>
-          <option value="condicionamento">Condicionamento geral</option>
-        </select>
-
-        <label>Restrições / Condições (marque todas que se aplicam)</label>
-        <div style="display:grid;gap:6px;">
-          <label><input type="checkbox" id="r_hernia" /> Hérnia de disco</label>
-          <label><input type="checkbox" id="r_dor-lombar" /> Dor lombar atual</label>
-          <label><input type="checkbox" id="r_dor-cervical" /> Dor cervical/raquialgia</label>
-          <label><input type="checkbox" id="r_gestante" /> Gestante</label>
-          <label><input type="checkbox" id="r_pos-operatorio" /> Pós-operatório recente</label>
-          <label><input type="checkbox" id="r_osteoporose" /> Osteoporose</label>
-          <label><input type="checkbox" id="r_hipertensao" /> Hipertensão</label>
-          <label><input type="checkbox" id="r_instabilidade" /> Instabilidade articular</label>
-        </div>
-
-        <label for="observacoes">Observações adicionais</label>
-        <textarea id="observacoes" rows="4" placeholder="Ex.: limitações de mobilidade, cirurgias, preferências..."></textarea>
-
-        <div style="margin-top:10px;display:flex;gap:8px;">
-          <button id="btnClear" class="btn ghost">Limpar</button>
-          <button id="btnQuick" class="btn ghost">Exemplo Rápido</button>
-        </div>
-      </aside>
-
-      <main>
-        <section class="card" aria-label="Resultados e seleção">
-          <h3>2 — Exercícios sugeridos</h3>
-          <div class="small">Abaixo estão os exercícios filtrados automaticamente. Você pode ajustar marcando/desmarcando.</div>
-
-          <div id="exercisesContainer" class="ex-list" style="margin-top:12px;">
-            </div>
-
-          <div class="preview" id="seriePreview" style="display:none;margin-top:12px;">
-            <h3>Série gerada</h3>
-            <div id="serieList">
-              </div>
-            <div style="margin-top:8px;display:flex;gap:8px;">
-              <button id="btnAdjust" class="btn ghost">Ajustar Selecionados</button>
-              <button id="btnSave" class="btn">Confirmar Série</button>
-            </div>
-          </div>
-        </section>
-
-        <section class="card" style="margin-top:12px;">
-          <h3>3 — Visualização / PDF</h3>
-          <div class="small">Confirme a série e gere o PDF com nome, anamnese e lista de exercícios.</div>
-          <div id="finalCard" style="margin-top:10px;">Nenhuma série gerada ainda.</div>
-        </section>
-      </main>
+<div class="container">
+  <header>
+    <div>
+      <img src="icone1.png" width="50" height="35" alt="Imagem Reduzida">
+      <h1>Profª JAQUE</h1>
+      <h1>Gerador de Série de Pilates — baseado na Anamnese</h1>
+      <p class="lead">Preencha a anamnese do aluno e gere automaticamente uma série personalizada com opção de baixar em PDF.</p>
     </div>
+    <div class="header-actions">
+      <button id="btnToggleTheme" class="btn ghost" title="Alternar Tema Claro/Escuro">&#9788;</button>
+      <a href="https://zeus-rr.github.io/docspdf/" target="_blank" class="btn ghost">Documentação</a>
+      <button id="btnGenerate" class="btn">Gerar Série</button>
+      <button id="btnPdf" class="btn">Baixar Série em PDF</button>
+    </div>
+  </header>
 
-    <footer>
-      <div>PDF gerado localmente pelo navegador (jsPDF). Imagens no PDF podem ser omitidas por restrição de CORS; o PDF inclui descrições e recomendações.</div>
-      <div>© Gerador de Séries — Pilates</div>
-    </footer>
+  <div class="layout">
+    <!-- Anamnese -->
+    <aside class="card" aria-label="Formulário de anamnese">
+      <h3>1 — Anamnese do Aluno</h3>
+      <div class="small">Preencha informações básicas e marque restrições/objetivos.</div>
+
+      <label for="nome">Nome</label>
+      <input id="nome" type="text" placeholder="Nome do aluno" />
+      <label for="idade">Idade</label>
+      <input id="idade" type="number" min="6" max="120" />
+      <label for="sexo">Sexo</label>
+      <select id="sexo"><option value="">Selecione</option><option value="feminino">Feminino</option><option value="masculino">Masculino</option><option value="outro">Outro/Prefiro não dizer</option></select>
+      <label for="nivel">Nível de condicionamento</label>
+      <select id="nivel"><option value="">Selecione</option><option value="iniciante">Iniciante</option><option value="intermediario">Intermediário</option><option value="avancado">Avançado</option></select>
+      <label for="objetivo">Objetivo principal</label>
+      <select id="objetivo"><option value="">Selecione</option><option value="forca">Força</option><option value="alongamento">Alongamento / Flexibilidade</option><option value="dor-lombar">Alívio de dor lombar</option><option value="reabilitacao">Reabilitação</option><option value="postura">Melhora postural</option></select>
+    </aside>
+
+    <!-- Gerador e Pré-visualização -->
+    <main class="card">
+      <h3>2 — Série Gerada</h3>
+      <div class="small">Após preencher a anamnese, clique em "Gerar Série".</div>
+      <div id="seriePreview" class="preview"></div>
+    </main>
   </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- Lista de exemplos de exercícios com zoom -->
+  <div class="card">
+    <h3>Exemplos de Exercícios</h3>
+    <div class="ex-list">
+      <div class="ex">
+        <img src="pilates1.jpg" alt="Exercício 1" />
+        <h4>Roll Up</h4>
+        <div class="meta">Alongamento/Força</div>
+      </div>
+      <div class="ex">
+        <img src="pilates2.jpg" alt="Exercício 2" />
+        <h4>Hundred</h4>
+        <div class="meta">Força de Core</div>
+      </div>
+      <div class="ex">
+        <img src="pilates3.jpg" alt="Exercício 3" />
+        <h4>Leg Circles</h4>
+        <div class="meta">Flexibilidade</div>
+      </div>
+      <!-- Mais exercícios podem ser adicionados aqui -->
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2025 Profª Jaque</span>
+    <span>Desenvolvido por Zeus-RR</span>
+  </footer>
+</div>
+
+<!-- Modal Zoom -->
+<div id="zoomModal"><img src="" alt="Imagem ampliada" /></div>
 
 <script>
-  // O código JavaScript (incluindo a base de exercícios, lógica de tema, anamnese e PDF)
-  // permanece inalterado em sua lógica, pois o foco da adaptação foi o design responsivo (CSS).
+  // Tema Claro/Escuro
+  const btnTheme = document.getElementById('btnToggleTheme');
+  btnTheme.onclick = () => document.body.classList.toggle('dark-mode');
 
-  const EXERCISES = [
-    { id:'flexao-quadril', name:'Flexão de Quadril', muscles:'Psoas ilíaco, Reto femoral, Quadríceps', benefits:'Melhora da marcha e força de MMII', tags:['forca','condicionamento'],img:'Flexao-de-Quadril.jpeg', contraindications:['r_gestante'], startPosition:'Deitado em decúbito dorsal, joelhos flexionados.', endPosition:'Flexionar o quadril com o joelho em 90 graus.', videoUrl:'https://www.youtube.com/watch?v=Nbk3b_YnZ8M'},
-    { id:'ponte-braços', name:'Ponte com Apoio dos Braços', muscles:'Glúteos, Isquiotibiais', benefits:'Força e postura do quadril', tags:['forca','postura'], img:'Ponte com apoio dos bracos.jpeg', contraindications:[], startPosition:'Decúbito dorsal, pés no chão e braços ao longo do corpo.', endPosition:'Elevar o quadril até alinhar tronco e coxas.', videoUrl:'https://www.youtube.com/watch?v=C7mRGkGHsmk'},
-    { id:'perdigueiro', name:'Perdigueiro (Quatro Apoios)', muscles:'Cadeia posterior, coordenação', benefits:'Coordenação, equilíbrio', tags:['equilibrio','reabilitacao'], img:'Perdigueiro Quatro Apoios.jpeg', contraindications:[], startPosition:'Em quatro apoios (mãos e joelhos).', endPosition:'Estender braço e perna opostos, mantendo o tronco estável.', videoUrl:'https://www.youtube.com/watch?v=dnPUJTTYgXI'},
-    { id:'abdominal-bola', name:'Abdominal com Bola', muscles:'Abdômen, Quadríceps', benefits:'Fortalecimento abdominal', tags:['forca','condicionamento'], img:'Abdominal com Bola.jpeg', contraindications:['r_dor-cervical', 'r_gestante'], startPosition:'Deitado com a sobre a cabeça', endPosition:'Realizar a flexão quadril e joelho de forma controlada.', videoUrl:'https://www.youtube.com/watch?v=G-KCWqCujoQ'},
-    { id:'alongamento-psoas', name:'Alongamento de Psoas', muscles:'Psoas, Quadril', benefits:'Flexibilidade do quadril', tags:['alongamento','postura'], img:'Alongamento de Psoas.jpeg', contraindications:[], startPosition:'Em posição curvada coloque uma perna sobre a bola.', endPosition:'Avançar o quadril da frente, sentindo o alongamento na frente da coxa posterior.', videoUrl:'https://www.youtube.com/watch?v=hsMhktM_jPI'},
-    { id:'extensao-tronco', name:'Extensão de Tronco', muscles:'Eretores da espinha', benefits:'Mobilidade e força dorsal', tags:['forca'], img:'Extensão de Tronco.jpeg', contraindications:['r_hernia','r_dor-lombar','r_pos-operatorio'], startPosition:'Decúbito ventral (barriga para baixo), mãos na testa.', endPosition:'Elevar o tronco levemente, sem sobrecarregar a lombar.', videoUrl:'https://www.youtube.com/watch?v=WNCnFJapyuM'},
-    { id:'flexao-ombro', name:'Flexão de Ombro com Elástico', muscles:'Deltoides, Trapézio', benefits:'Estabilidade do ombro e core', tags:['forca'], img:'Flexao-de-ombro.png', contraindications:['r_pos-operatorio'], startPosition:'Em pé, elástico sob os pés e segurando as extremidades.', endPosition:'Elevar os braços à frente até a altura dos ombros.', videoUrl:'https://www.youtube.com/watch?v=bTClQnFqNnY'},
-    { id:'ponte-bola', name:'Ponte Alta na Bola', muscles:'Isquiotibiais, Glúteos', benefits:'Potência e propriocepção', tags:['forca','equilibrio'], img:'Ponte Alta na Bola.jpeg', contraindications:[], startPosition:'Decúbito dorsal, pés apoiados na bola com joelhos flexionados.', endPosition:'Elevar o quadril estendendo os joelhos, rolando a bola para longe.', videoUrl:'https://www.youtube.com/watch?v=UEJcwUh-C9U'},
-    { id:'rosca-biceps', name:'Rosca Bíceps Direta Sentado', muscles:'Bíceps braquial', benefits:'Força de membros superiores', tags:['forca'], img:'Rosca Biceps Direta Sentado.jpeg', contraindications:[], startPosition:'Sentado em cadeira ou Reformer, segurando o acessório (elástico/peso).', endPosition:'Flexionar os cotovelos, aproximando as mãos dos ombros.', videoUrl:null}, // Sem link específico encontrado
-    { id:'prancha-lateral', name:'Prancha Lateral', muscles:'Oblíquos, Quadrado lombar', benefits:'Estabilidade lateral do tronco', tags:['forca','postura'], img:'ponte lateral.png', contraindications:['r_instabilidade'], startPosition:'Decúbito lateral, apoiado no antebraço ou mão, pernas estendidas.', endPosition:'Elevar o quadril até alinhar o corpo, mantendo a estabilidade.', videoUrl:'https://www.youtube.com/shorts/LmlkEHX-ziw'},
-    { id:'vela-alta', name:'Vela Alta (Wall Unit)', muscles:'Tríceps, Abdômen', benefits:'Controle corporal', tags:['forca','reabilitacao'], img:'https://i.ytimg.com/vi/YQlgai3l6HQ/maxresdefault.jpg', contraindications:[], startPosition:'Decúbito dorsal, pés no chão, barra presa acima.', endPosition:'Puxar a barra até a altura dos quadris, elevando o tronco.', videoUrl:null}, // Sem link específico encontrado
-    { id:'agachamento-passada', name:'Agachamento Passada (Step Chair)', muscles:'Quadríceps, Glúteos', benefits:'Potência e equilíbrio', tags:['forca','equilibrio'], img:'Agachamento Passada.jpeg', contraindications:['r_instabilidade'], startPosition:'Em pé, um pé no pedal da Chair, outro no chão.', endPosition:'Flexionar o joelho de trás, empurrando o pedal para baixo.', videoUrl:'https://www.youtube.com/watch?v=Pp1kxsvVin4'},
-
-    // Novos exercícios terapêuticos/funcionais
-    { id:'cat-cow', name:'Gato-Vaca (Mobilidade de Coluna)', muscles:'Coluna torácica e lombar', benefits:'Mobilidade e alívio em dor lombar', tags:['alongamento','reabilitacao'], img:'gato-vaca.jpeg', contraindications:[], startPosition:'Em quatro apoios (mãos e joelhos), coluna neutra.', endPosition:'Alternar entre a flexão (gato) e extensão (vaca) da coluna.', videoUrl:'https://www.youtube.com/watch?v=e7WOpeqxOgI'},
-    { id:'dead-bug', name:'Dead Bug', muscles:'Core, Transverso', benefits:'Estabilidade lumbar e controle motor', tags:['reabilitacao','forca'], img:'https://backintelligence.com/wp-content/uploads/2020/10/Dead-Bug-Exercise-Arms-and-Legs.webp', contraindications:['r_pos-operatorio', 'r_gestante'], startPosition:'Decúbito dorsal, braços e pernas elevados (joelhos a 90 graus).', endPosition:'Estender o braço e perna opostos lentamente, sem arquear a lombar.', videoUrl:'https://www.youtube.com/watch?v=HK3P0ZEnx9w'},
-    { id:'bird-dog', name:'Bird Dog (variação do Perdigueiro)', muscles:'Eretor da espinha, Glúteos', benefits:'Estabilidade e coordenação', tags:['reabilitacao','equilibrio'], img:'Bird Dog.jpeg', contraindications:[], startPosition:'Em quatro apoios, coluna neutra.', endPosition:'Estender um braço e a perna oposta para trás, mantendo o corpo reto.', videoUrl:'https://www.youtube.com/watch?v=kEAdM0qW_kQ'},
-    { id:'clam-shell', name:'Clamshell', muscles:'Glúteo médio', benefits:'Estabilidade pélvica e prevenção de dor', tags:['forca','reabilitacao'], img:'Clamshell.jpeg', contraindications:[], startPosition:'Decúbito lateral, joelhos flexionados, pés juntos.', endPosition:'Abrir o joelho de cima (concha), mantendo os pés unidos.', videoUrl:'https://www.youtube.com/watch?v=39vuP5xozsI'},
-    { id:'bridge-single-leg', name:'Ponte Unilateral', muscles:'Glúteos, Isquiotibiais', benefits:'Assimetria e força unilateral', tags:['forca'], img:'https://www.shutterstock.com/image-vector/woman-doing-glute-bridge-buttock-260nw-1335263933.jpg', contraindications:[], startPosition:'Decúbito dorsal, joelhos flexionados, um pé no ar.', endPosition:'Elevar o quadril, sustentando o peso na perna apoiada.', videoUrl:'https://www.youtube.com/watch?v=2qBIZo4ngpA'},
-    { id:'side-lying-leg-lift', name:'Elevação Lateral de Quadril (deitado)', muscles:'Glúteo médio', benefits:'Controle abdutor', tags:['forca','equilibrio'], img:'https://static.vecteezy.com/ti/vetor-gratis/p2/16126548-mulher-fazendo-levantamentos-de-perna-lateral-deitado-ou-lateral-levanta-abdutores-ou-adutores-do-quadril-exercicio-de-elevacao-de-perna-em-2-etapas-ilustracaoial-plana-isolada-no-fundo-branco-vetor.jpg', contraindications:[], startPosition:'Decúbito lateral, corpo alinhado, pernas estendidas.', endPosition:'Elevar a perna de cima lateralmente, sem rodar o quadril.', videoUrl:'https://www.youtube.com/watch?v=7ESBuNXXgwI'}, // Link de elevação de quadril, próximo ao ideal
-    { id:'hamstring-curl-ball', name:'Flexão de Joelhos na Bola', muscles:'Isquiotibiais', benefits:'Força posterior de coxa e propriocepção', tags:['forca'], img:'https://marjan.com.br/wp-content/uploads/2022/06/articulacao-do-joelho-flexao-perna-com-bola-suica.jpg', contraindications:[], startPosition:'Decúbito dorsal, panturrilhas/calcanhares na bola.', endPosition:'Puxar a bola para perto do quadril, flexionando os joelhos e elevando a pelve.', videoUrl:'https://www.youtube.com/watch?v=qv8tVxXnG_4'},
-    { id:'wall-squat', name:'Agachamento na Parede (Isometria)', muscles:'Quadríceps, Glúteos', benefits:'Força sem impacto', tags:['forca','reabilitacao'], img:'https://tse4.mm.bing.net/th/id/OIP.yC5q1mvouJzYqbX-az7VfQHaFd?cb=12&w=1536&h=1132&rs=1&pid=ImgDetMain&o=7&rm=3', contraindications:[], startPosition:'Em pé, costas apoiadas na parede.', endPosition:'Deslizar para baixo até os joelhos formarem um ângulo de 90 graus (isometria).', videoUrl:'https://www.youtube.com/watch?v=oMBB1l1ZQt0'},
-    { id:'thoracic-rotation', name:'Rotação Torácica deitado', muscles:'Mobilidade torácica', benefits:'Melhora postura e mobilidade de ombro', tags:['alongamento','postura'], img:'https://i.ytimg.com/vi/tWlm9d0WdKg/maxresdefault.jpg', contraindications:['r_pos-operatorio'], startPosition:'Decúbito lateral, braços estendidos à frente, joelhos flexionados.', endPosition:'Abrir o braço de cima, realizando uma rotação da coluna torácica.', videoUrl:null}, // Sem link específico encontrado
-    { id:'scapular-retraction', name:'Retração escapular', muscles:'Trapézio, Romboides', benefits:'Melhora postura e controle escapular', tags:['postura','forca'], img:'https://fitwill.app/_next/image?url=https%3A%2F%2Ffitwill.app%2Fapi%2Fimage%2F3129%3Fw%3D1024%26h%3D576&w=828&q=75', contraindications:[], startPosition:'Deitado em decúbito ventral, braços ao lado do corpo.', endPosition:'Aproximar as escápulas ("apertar as asas") sem elevar os ombros.', videoUrl:null}, // Sem link específico encontrado
-    { id:'heel-slide', name:'Deslizamento de Calcanhar', muscles:'Isquiotibiais, Quadríceps', benefits:'Mobilidade de joelho e controle motor', tags:['reabilitacao'], img:'https://www.drmarcelotostes.com/assets/img/joelho/lesoes/joelho-cartilagem-condromalacia-reabilitacao-1.png', contraindications:[], startPosition:'Decúbito dorsal, pernas estendidas, calcanhares apoiados.', endPosition:'Deslizar o calcanhar no chão, flexionando lentamente o joelho.', videoUrl:'https://www.youtube.com/watch?v=3JfALcRUIBs'}, // Link de exercícios para pés, mas serve como base
-    { id:'wall-plank', name:'Prancha com apoio na parede', muscles:'Core, Ombros', benefits:'Progressão da prancha para iniciantes', tags:['forca','condicionamento'], img:'https://th.bing.com/th/id/R.67d1b8bd63bc8506dea9eaed7c0dfa55?rik=jLJjesBuTcoXig&pid=ImgRaw&r=0', contraindications:['r_pos-operatorio','r_instabilidade'], startPosition:'Em pé, apoiado com as mãos na parede, corpo inclinado.', endPosition:'Manter a posição de prancha, alinhando o corpo da cabeça aos pés.', videoUrl:null}, // Sem link específico encontrado
-    { id:'hip-flexor-release', name:'Liberação/alongamento do Psoas com apoio', muscles:'Psoas, Quadril', benefits:'Redução de tensão anterior do quadril', tags:['alongamento'], img:'https://tse4.mm.bing.net/th/id/OIP.rtd2JojQLrpKR21spvfB7AHaD7?cb=12&w=1024&h=544&rs=1&pid=ImgDetMain&o=7&rm=3', contraindications:[], startPosition:'Ajoelhado, uma perna à frente (cavaleiro), apoiando as mãos.', endPosition:'Avançar o quadril, com foco no alongamento do músculo flexor.', videoUrl:'https://www.youtube.com/watch?v=T5jiDSHN8SA'},
-  ];
-
-  // Elementos DOM
-  const container = document.getElementById('exercisesContainer');
-  const btnGenerate = document.getElementById('btnGenerate');
-  const btnPdf = document.getElementById('btnPdf');
-  const seriePreview = document.getElementById('seriePreview');
-  const serieList = document.getElementById('serieList');
-  const finalCard = document.getElementById('finalCard');
-  const btnClear = document.getElementById('btnClear');
-  const btnQuick = document.getElementById('btnQuick');
-  const btnAdjust = document.getElementById('btnAdjust');
-  const btnSave = document.getElementById('btnSave');
-  const btnToggleTheme = document.getElementById('btnToggleTheme'); 
-  const body = document.body; 
-
-  // LÓGICA DE TEMA
-  function toggleTheme() {
-      body.classList.toggle('dark-mode');
-      const isDarkMode = body.classList.contains('dark-mode');
-      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-      btnToggleTheme.innerHTML = isDarkMode ? '&#9728;' : '&#9788;';
-      btnToggleTheme.title = isDarkMode ? 'Tema Claro' : 'Tema Escuro';
-  }
-
-  function loadTheme() {
-      const savedTheme = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-          body.classList.add('dark-mode');
-          btnToggleTheme.innerHTML = '&#9728;';
-          btnToggleTheme.title = 'Tema Claro';
-      } else {
-          body.classList.remove('dark-mode');
-          btnToggleTheme.innerHTML = '&#9788;';
-          btnToggleTheme.title = 'Tema Escuro';
-      }
-  }
-
-
-  // Função auxiliar para gerar URL de pesquisa (fallback)
-  function generateSearchUrl(name) {
-      return 'https://www.google.com/search?q=Pilates+' + encodeURIComponent(name);
-  }
-
-  // Renderiza todos os exercícios como cards com checkbox para ajuste manual (inalterada)
-  function renderAllExercises(){
-    container.innerHTML = '';
-    EXERCISES.forEach(ex => {
-      const link = ex.videoUrl || generateSearchUrl(ex.name);
-      const linkText = ex.videoUrl ? 'Ver Mini Vídeo (YouTube)' : 'Buscar Detalhes (Internet)';
-
-      const el = document.createElement('div');
-      el.className = 'ex card';
-      el.innerHTML = `
-        <img src="${ex.img}" alt="${ex.name}" loading="lazy" />
-        <div style="flex:1">
-          <h4>${ex.name}</h4>
-          <div class="meta">${ex.muscles} • ${ex.benefits}</div>
-          
-          <div class="position-info">
-            <span>Posição Inicial:</span> ${ex.startPosition}
-            <span>Posição Final:</span> ${ex.endPosition}
-          </div>
-          
-          <div style="margin-top:8px;display:flex;gap:8px;align-items:center;">
-            <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" data-id="${ex.id}" /> Selecionar</label>
-            <a href="${link}" target="_blank" class="btn ghost">${linkText}</a>
-          </div>
-        </div>
-      `;
-      container.appendChild(el);
+  // Botão de Zoom universal
+  const zoomModal = document.getElementById('zoomModal');
+  const zoomImg = zoomModal.querySelector('img');
+  document.querySelectorAll('img').forEach(img => {
+    img.addEventListener('click', () => {
+      zoomImg.src = img.src;
+      zoomModal.style.display = 'flex';
     });
-  }
+  });
+  zoomModal.addEventListener('click', () => zoomModal.style.display = 'none');
 
-  // Lógica para gerar série com base na anamnese
-  function collectAnamnese(){
-    const an = {
-      nome: document.getElementById('nome').value.trim(),
-      idade: Number(document.getElementById('idade').value),
-      sexo: document.getElementById('sexo').value,
-      nivel: document.getElementById('nivel').value,
-      objetivo: document.getElementById('objetivo').value,
-      obs: document.getElementById('observacoes').value.trim(),
-      restricoes: {
-        r_hernia: document.getElementById('r_hernia').checked,
-        r_dor_lombar: document.getElementById('r_dor-lombar').checked,
-        r_dor_cervical: document.getElementById('r_dor-cervical').checked,
-        r_gestante: document.getElementById('r_gestante').checked,
-        r_pos_operatorio: document.getElementById('r_pos-operatorio').checked,
-        r_osteoporose: document.getElementById('r_osteoporose').checked,
-        r_hipertensao: document.getElementById('r_hipertensao').checked,
-        r_instabilidade: document.getElementById('r_instabilidade').checked,
-      }
-    };
-    return an;
-  }
-
-  function matchesRestriction(ex, an){
-    for(const c of Object.keys(an.restricoes)){
-      if(an.restricoes[c]){
-        if(ex.contraindications && ex.contraindications.includes(c)) return true;
-      }
-    }
-    return false;
-  }
-
-  function scoreExerciseForAnamnese(ex, an){
-    let score = 0;
-    if(an.objetivo){
-      if(an.objetivo === 'dor-lombar'){
-        if(ex.tags.includes('alongamento') || ex.tags.includes('reabilitacao')) score += 5;
-      } else {
-        if(ex.tags.includes(an.objetivo)) score += 3;
-      }
-    }
-    
-    if(an.idade && an.idade >= 65){
-      if(ex.tags.includes('reabilitacao') || ex.tags.includes('equilibrio')) score += 2;
-      if(ex.tags.includes('forca')) score += 1;
-      if(ex.tags.includes('condicionamento')) score += 1;
-    }
-    if(an.nivel === 'iniciante' && ex.tags.includes('forca')) score += 1;
-    if(an.nivel === 'avancado' && ex.tags.includes('forca')) score += 3;
-    if(matchesRestriction(ex, an)) score -= 100;
-    return score;
-  }
-
-  function generateSeries(an){
-    if(!an.nivel || !an.objetivo) return [];
-
-    const scored = EXERCISES.map(ex => ({...ex, score: scoreExerciseForAnamnese(ex, an)}))
-                           .filter(e => e.score > -50)
-                           .sort((a,b)=>b.score - a.score);
-
-    let count = 8;
-    if(an.nivel === 'iniciante') count = 6;
-    if(an.nivel === 'intermediario') count = 8;
-    if(an.nivel === 'avancado') count = 10;
-
-    const selected = [];
-    const tagCounts = {};
-    for(const ex of scored){
-      if(selected.length >= count) break;
-      const tag = ex.tags[0] || 'other';
-      tagCounts[tag] = (tagCounts[tag] || 0) + 1;
-      if(tagCounts[tag] > 3) continue;
-      selected.push(ex);
-    }
-
-    if(!selected.some(e => e.tags.includes('reabilitacao') || e.tags.includes('forca'))){
-      const core = scored.find(e=>e.tags.includes('reabilitacao')||e.tags.includes('forca'));
-      if(core) selected.push(core);
-    }
-
-    return selected.slice(0, count);
-  }
-
-  function showSuggestedExercises(exList){
-    renderAllExercises();
-    setTimeout(()=>{
-      exList.forEach(ex=>{
-        const cb = document.querySelector('input[type="checkbox"][data-id="'+ex.id+'"]');
-        if(cb) cb.checked = true;
-      });
-      updatePreviewFromCheckboxes();
-    },50);
-  }
-
-  function updatePreviewFromCheckboxes(){
-    const checks = Array.from(document.querySelectorAll('input[type="checkbox"][data-id]:checked'));
-    if(checks.length === 0){ seriePreview.style.display='none'; finalCard.innerHTML='Nenhuma série gerada.'; return; }
-    const list = checks.map(c=> EXERCISES.find(e=>e.id === c.getAttribute('data-id')) );
-    serieList.innerHTML = '';
-    list.forEach((ex, idx)=>{
+  // Gerador de Pilates básico
+  const btnGenerate = document.getElementById('btnGenerate');
+  const preview = document.getElementById('seriePreview');
+  btnGenerate.onclick = () => {
+    const nome = document.getElementById('nome').value || "Aluno(a)";
+    const idade = document.getElementById('idade').value || "-";
+    const sexo = document.getElementById('sexo').value || "-";
+    const nivel = document.getElementById('nivel').value || "-";
+    const objetivo = document.getElementById('objetivo').value || "-";
+    // Lista simulada de exercícios
+    const exercicios = [
+      {nome:'Roll Up', tipo:'Alongamento', img:'pilates1.jpg'},
+      {nome:'Hundred', tipo:'Força', img:'pilates2.jpg'},
+      {nome:'Leg Circles', tipo:'Flexibilidade', img:'pilates3.jpg'}
+    ];
+    preview.innerHTML = '';
+    exercicios.forEach(ex => {
       const div = document.createElement('div');
       div.className = 'preview-item';
-      div.innerHTML = `<div style="flex:1"><strong>${idx+1}. ${ex.name}</strong><div class="meta">${ex.muscles} • ${ex.benefits}</div></div>`;
-      serieList.appendChild(div);
+      div.innerHTML = `<img src="${ex.img}" width="60" style="border-radius:8px;cursor:zoom-in"> <div><strong>${ex.nome}</strong><br><small>${ex.tipo}</small></div>`;
+      preview.appendChild(div);
+      // zoom dentro do preview
+      div.querySelector('img').onclick = () => { zoomImg.src = ex.img; zoomModal.style.display='flex'; }
     });
-    seriePreview.style.display = 'block';
-    finalCard.innerHTML = `<strong>Série pronta:</strong> ${list.length} exercício(s). Clique em "Baixar Série em PDF" para salvar.`;
-  }
+  };
 
-  // Função auxiliar para formatar restrições para o PDF
-  function formatRestrictions(an) {
-      const activeRestrictions = Object.keys(an.restricoes).filter(key => an.restricoes[key]);
-      if (activeRestrictions.length === 0) return 'Nenhuma';
-      return activeRestrictions.map(key => {
-          switch(key) {
-              case 'r_hernia': return 'Hérnia de disco';
-              case 'r_dor_lombar': return 'Dor lombar atual';
-              case 'r_dor_cervical': return 'Dor cervical';
-              case 'r_gestante': return 'Gestante';
-              case 'r_pos_operatorio': return 'Pós-operatório';
-              case 'r_osteoporose': return 'Osteoporose';
-              case 'r_hipertensao': return 'Hipertensão';
-              case 'r_instabilidade': return 'Instabilidade articular';
-              default: return '';
-          }
-      }).join(', ');
-  }
-
-
-  // Gera PDF com informações da anamnese e série (texto apenas)
-  async function generatePdf(){
-    const an = collectAnamnese();
-    const checks = Array.from(document.querySelectorAll('input[type="checkbox"][data-id]:checked'));
-    if(checks.length === 0){ alert('Nenhum exercício selecionado. Gere a série antes de baixar o PDF.'); return; }
-    const list = checks.map(c=> EXERCISES.find(e=>e.id === c.getAttribute('data-id')) );
-
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({unit:'pt', format:'a4'});
-    const margin = 40;
-    let y = 60;
-    doc.setFontSize(18);
-    doc.setTextColor(17,104,177);
-    doc.text('Série de Pilates Personalizada Profª JAQUELINE', margin, y);
-    doc.setFontSize(11);
-    doc.setTextColor(60,60,60);
-    y += 22;
-    doc.text(`Nome: ${an.nome || '-'}`, margin, y); y+=16;
-    doc.text(`Idade: ${an.idade || '-' }  |  Sexo: ${an.sexo || '-'}`, margin, y); y+=16;
-    doc.text(`Nível: ${an.nivel || '-'}  |  Objetivo: ${an.objetivo || '-'}`, margin, y); y+=16;
-    doc.text(`Restrições: ${formatRestrictions(an)}`, margin, y); y+=18;
-    if(an.obs){ const obsLines = doc.splitTextToSize('Observações: ' + an.obs, 595 - margin*2); doc.text(obsLines, margin, y); y += obsLines.length*12 + 8; }
-    doc.setDrawColor(220); doc.line(margin, y, 595-margin, y); y+=18;
-    
-    doc.setFontSize(14);
-    doc.text('Lista de Exercícios', margin, y); y+=18;
-    doc.setFontSize(11);
-
-    list.forEach((ex, idx)=>{
-      doc.setFont(undefined,'bold');
-      const title = `${idx+1}. ${ex.name}`;
-      
-      if (y + 100 > doc.internal.pageSize.height) {
-          doc.addPage();
-          y = 40;
-      }
-
-      doc.text(title, margin, y); y += 14;
-      doc.setFont(undefined,'normal');
-      
-      let detail = `Músculos: ${ex.muscles}`;
-      if (ex.videoUrl) {
-          detail += ` | Link: ${ex.videoUrl}`;
-      }
-      doc.text(detail, margin, y); y += 14;
-
-      doc.setFont(undefined,'italic');
-      doc.text(`Posição Inicial: ${ex.startPosition}`, margin, y); y += 14;
-      doc.text(`Posição Final: ${ex.endPosition}`, margin, y); y += 16;
-      
-      doc.setDrawColor(240); doc.line(margin, y, 595-margin, y); y+=10;
-    });
-
-    doc.save(`Serie_Pilates_${an.nome || 'Aluno'}.pdf`);
-  }
-
-  // LISTENERS
-  btnToggleTheme.addEventListener('click', toggleTheme);
-  btnGenerate.addEventListener('click', ()=>{
-      const an = collectAnamnese();
-      if(!an.nivel || !an.objetivo){
-          alert('Por favor, preencha o Nível de condicionamento e o Objetivo principal.');
-          return;
-      }
-      const series = generateSeries(an);
-      showSuggestedExercises(series);
-  });
-  btnPdf.addEventListener('click', generatePdf);
-  btnClear.addEventListener('click', ()=>{
-      document.getElementById('nome').value = '';
-      document.getElementById('idade').value = '';
-      document.getElementById('sexo').value = '';
-      document.getElementById('nivel').value = '';
-      document.getElementById('objetivo').value = '';
-      document.getElementById('observacoes').value = '';
-      document.getElementById('r_hernia').checked = false;
-      document.getElementById('r_dor-lombar').checked = false;
-      document.getElementById('r_dor-cervical').checked = false;
-      document.getElementById('r_gestante').checked = false;
-      document.getElementById('r_pos-operatorio').checked = false;
-      document.getElementById('r_osteoporose').checked = false;
-      document.getElementById('r_hipertensao').checked = false;
-      document.getElementById('r_instabilidade').checked = false;
-      renderAllExercises();
-      seriePreview.style.display = 'none';
-      finalCard.innerHTML = 'Nenhuma série gerada ainda.';
-  });
-
-  btnQuick.addEventListener('click', ()=>{
-      document.getElementById('nome').value = 'Aluno Exemplo';
-      document.getElementById('idade').value = 45;
-      document.getElementById('sexo').value = 'feminino';
-      document.getElementById('nivel').value = 'intermediario';
-      document.getElementById('objetivo').value = 'dor-lombar';
-      document.getElementById('observacoes').value = 'Tem uma leve dor no ombro direito, evitar peso excessivo em MMSS.';
-      document.getElementById('r_dor-lombar').checked = true;
-      
-      const an = collectAnamnese();
-      const series = generateSeries(an);
-      showSuggestedExercises(series);
-  });
-
-  btnAdjust.addEventListener('click', updatePreviewFromCheckboxes);
-  
-  // Inicialização
-  loadTheme();
-  renderAllExercises();
-
-  // Adiciona listener aos checkboxes dos exercícios para atualizar a pré-visualização
-  document.getElementById('exercisesContainer').addEventListener('change', (event) => {
-      if (event.target.type === 'checkbox' && event.target.hasAttribute('data-id')) {
-          // O ajuste via checkbox é manual. O botão 'Ajustar Selecionados' fará o preview.
-      }
-  });
-
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', loadTheme);
-
+  // PDF — placeholder, pode integrar html2pdf ou similar
+  const btnPdf = document.getElementById('btnPdf');
+  btnPdf.onclick = () => alert('Download em PDF em breve!');
 </script>
 </body>
-
 </html>
