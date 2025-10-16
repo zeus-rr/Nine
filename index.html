@@ -3,10 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Gerador Inteligente de Série de Pilates - Profª JAQUE</title>
+  <title>Gerador Inteligente de Pilates - Profª JAQUE</title>
   <link rel="icon" href="https://zeus-rr.github.io/Nine/iconer.ico">
-
-  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -22,159 +20,210 @@
             border: { light: '#e6eef5', dark: '#333a44' },
           },
           boxShadow: {
-            soft: '0 8px 24px rgba(17, 104, 177, 0.07)',
-            dark: '0 4px 16px rgba(0, 0, 0, 0.4)',
+            soft: '0 8px 24px rgba(17,104,177,0.07)',
+            dark: '0 4px 16px rgba(0,0,0,0.4)',
           },
         },
       },
     }
   </script>
-
-  <!-- jsPDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 
 <body class="bg-bg-light text-text-light dark:bg-bg-dark dark:text-text-dark min-h-screen p-4 transition-colors duration-300">
-  <div class="max-w-6xl mx-auto">
-    <header class="flex flex-wrap items-center justify-between mb-6 gap-3">
+  <div class="max-w-7xl mx-auto">
+    <!-- HEADER -->
+    <header class="flex flex-wrap justify-between items-center gap-3 mb-6">
       <div class="flex items-center gap-3">
         <img src="icone1.png" alt="Logo" class="w-12 h-10 rounded-md object-contain">
         <div>
           <h1 class="text-xl sm:text-2xl font-bold text-accent-light dark:text-accent-dark">Profª JAQUE</h1>
-          <p class="text-sm text-muted-light dark:text-muted-dark">Gerador Inteligente de Séries de Pilates</p>
+          <p class="text-sm text-muted-light dark:text-muted-dark">Gerador Inteligente + Histórico de Séries de Pilates</p>
         </div>
       </div>
 
       <div class="flex flex-wrap gap-2 justify-center">
-        <button id="btnTheme" class="border border-accent-light dark:border-accent-dark text-accent-light dark:text-accent-dark font-semibold rounded-lg px-4 py-2 hover:opacity-90 transition">&#9788;</button>
-        <button id="btnGenerate" class="bg-accent-light dark:bg-accent-dark text-white font-bold rounded-lg px-4 py-2 hover:opacity-90 transition">Gerar Série Inteligente</button>
-        <button id="btnPdf" class="bg-accent-light dark:bg-accent-dark text-white font-bold rounded-lg px-4 py-2 hover:opacity-90 transition">Baixar PDF</button>
+        <button id="btnTheme" class="border border-accent-light dark:border-accent-dark text-accent-light dark:text-accent-dark rounded-lg px-4 py-2 hover:opacity-90 transition">&#9788;</button>
+        <button id="btnTabAnamnese" class="bg-accent-light dark:bg-accent-dark text-white font-bold rounded-lg px-4 py-2">Anamnese</button>
+        <button id="btnTabHistorico" class="bg-accent-light dark:bg-accent-dark text-white font-bold rounded-lg px-4 py-2">Histórico</button>
       </div>
     </header>
 
-    <div class="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-4">
-      <!-- FORMULÁRIO -->
-      <aside class="bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark shadow-soft dark:shadow-dark rounded-xl p-4">
-        <h2 class="text-lg font-semibold text-accent-light dark:text-accent-dark mb-3">Anamnese</h2>
+    <!-- CONTEÚDO -->
+    <div id="tabAnamnese">
+      <div class="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-4">
+        <!-- FORM -->
+        <aside class="bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark shadow-soft dark:shadow-dark rounded-xl p-4">
+          <h2 class="text-lg font-semibold text-accent-light dark:text-accent-dark mb-3">Anamnese</h2>
+          <label class="font-semibold">Nome</label>
+          <input id="nome" class="w-full p-2 rounded-md border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark mb-2">
+          <label class="font-semibold">Idade</label>
+          <input id="idade" type="number" class="w-full p-2 rounded-md border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark mb-2">
+          <label class="font-semibold">Nível</label>
+          <select id="nivel" class="w-full p-2 rounded-md border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark mb-2">
+            <option>Iniciante</option><option>Intermediário</option><option>Avançado</option>
+          </select>
+          <label class="font-semibold">Objetivo</label>
+          <select id="objetivo" class="w-full p-2 rounded-md border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark mb-2">
+            <option>Condicionamento</option><option>Reabilitação</option><option>Fortalecimento</option><option>Flexibilidade</option>
+          </select>
+          <label class="font-semibold">Restrições / Lesões</label>
+          <textarea id="restricoes" rows="2" class="w-full p-2 rounded-md border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark"></textarea>
 
-        <label class="font-semibold">Nome</label>
-        <input id="nome" type="text" class="w-full p-2 rounded-md border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark mb-2">
+          <button id="btnGenerate" class="mt-4 w-full bg-accent-light dark:bg-accent-dark text-white font-bold rounded-lg px-4 py-2 hover:opacity-90 transition">Gerar Série Inteligente</button>
+        </aside>
 
-        <label class="font-semibold">Idade</label>
-        <input id="idade" type="number" class="w-full p-2 rounded-md border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark mb-2">
+        <!-- RESULTADO -->
+        <main id="resultado" class="bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark shadow-soft dark:shadow-dark rounded-xl p-4">
+          <h2 class="text-lg font-semibold text-accent-light dark:text-accent-dark mb-3">Série Inteligente Gerada</h2>
+          <div id="serie" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+          <div id="observacoes" class="mt-4 text-sm text-muted-light dark:text-muted-dark"></div>
+          <button id="btnSalvar" class="mt-4 bg-accent-light dark:bg-accent-dark text-white font-bold rounded-lg px-4 py-2 hover:opacity-90 transition hidden">Salvar no Histórico</button>
+          <button id="btnPdf" class="mt-2 bg-accent-light dark:bg-accent-dark text-white font-bold rounded-lg px-4 py-2 hover:opacity-90 transition hidden">Baixar PDF</button>
+        </main>
+      </div>
+    </div>
 
-        <label class="font-semibold">Nível</label>
-        <select id="nivel" class="w-full p-2 rounded-md border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark mb-2">
-          <option>Iniciante</option>
-          <option>Intermediário</option>
-          <option>Avançado</option>
-        </select>
-
-        <label class="font-semibold">Objetivo</label>
-        <select id="objetivo" class="w-full p-2 rounded-md border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark mb-2">
-          <option>Condicionamento</option>
-          <option>Reabilitação</option>
-          <option>Fortalecimento</option>
-          <option>Flexibilidade</option>
-        </select>
-
-        <label class="font-semibold">Restrições / Lesões</label>
-        <textarea id="restricoes" rows="2" class="w-full p-2 rounded-md border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark"></textarea>
-      </aside>
-
-      <!-- RESULTADO -->
-      <main id="resultado" class="bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark shadow-soft dark:shadow-dark rounded-xl p-4">
-        <h2 class="text-lg font-semibold text-accent-light dark:text-accent-dark mb-3">Série Inteligente Gerada</h2>
-        <div id="serie" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4"></div>
-        <div id="observacoes" class="mt-4 text-sm text-muted-light dark:text-muted-dark"></div>
-      </main>
+    <!-- HISTÓRICO -->
+    <div id="tabHistorico" class="hidden bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark shadow-soft dark:shadow-dark rounded-xl p-4">
+      <h2 class="text-lg font-semibold text-accent-light dark:text-accent-dark mb-3">Histórico de Séries</h2>
+      <input id="buscaAluno" placeholder="Buscar por nome..." class="w-full p-2 mb-4 rounded-md border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark">
+      <div id="listaHistorico" class="space-y-3"></div>
     </div>
   </div>
 
   <script>
-    // 🌗 Controle de tema com persistência
-    const btnTheme = document.getElementById('btnTheme');
-    btnTheme.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    const btnTheme = document.getElementById("btnTheme");
+    const tabAnamnese = document.getElementById("tabAnamnese");
+    const tabHistorico = document.getElementById("tabHistorico");
+    const btnTabAnamnese = document.getElementById("btnTabAnamnese");
+    const btnTabHistorico = document.getElementById("btnTabHistorico");
+
+    // Tema persistente
+    btnTheme.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
     });
-    if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+    if (localStorage.getItem("theme") === "dark") document.body.classList.add("dark");
 
-    // Banco de exercícios por categoria
-    const banco = {
-      geral: [
-        { nome: "Prancha", desc: "Fortalece o core e melhora a postura.", tags: ["core", "geral"], img: "https://picsum.photos/300/200?1" },
-        { nome: "Ponte", desc: "Ativa glúteos e lombar.", tags: ["lombar", "gluteo"], img: "https://picsum.photos/300/200?2" },
-        { nome: "Cem", desc: "Trabalha respiração e estabilidade abdominal.", tags: ["abdomen"], img: "https://picsum.photos/300/200?3" },
-        { nome: "Roll Down", desc: "Mobiliza a coluna.", tags: ["coluna"], img: "https://picsum.photos/300/200?4" },
-        { nome: "Single Leg Stretch", desc: "Controle e flexão abdominal.", tags: ["abdomen"], img: "https://picsum.photos/300/200?5" },
-        { nome: "Teaser", desc: "Equilíbrio e força de centro.", tags: ["core", "equilibrio"], img: "https://picsum.photos/300/200?6" },
-        { nome: "Saw", desc: "Rotação e alongamento.", tags: ["coluna", "alongamento"], img: "https://picsum.photos/300/200?7" },
-        { nome: "Mermaid", desc: "Alongamento lateral.", tags: ["ombro", "alongamento"], img: "https://picsum.photos/300/200?9" },
-        { nome: "Spine Stretch", desc: "Alongamento ativo da coluna.", tags: ["coluna", "flexibilidade"], img: "https://picsum.photos/300/200?8" },
-      ]
-    };
+    // Alternância entre abas
+    btnTabAnamnese.onclick = () => { tabAnamnese.classList.remove("hidden"); tabHistorico.classList.add("hidden"); };
+    btnTabHistorico.onclick = () => { tabAnamnese.classList.add("hidden"); tabHistorico.classList.remove("hidden"); carregarHistorico(); };
 
-    // 🧠 Função inteligente de geração
-    document.getElementById('btnGenerate').addEventListener('click', () => {
-      const nome = document.getElementById('nome').value || "Aluno(a)";
-      const idade = parseInt(document.getElementById('idade').value || 30);
-      const nivel = document.getElementById('nivel').value;
-      const objetivo = document.getElementById('objetivo').value;
-      const restricoes = document.getElementById('restricoes').value.toLowerCase();
+    // Exercícios base
+    const base = [
+      { nome:"Prancha",desc:"Fortalece o core e melhora a postura.",tags:["core"],img:"https://picsum.photos/300/200?1"},
+      { nome:"Ponte",desc:"Ativa glúteos e lombar.",tags:["lombar"],img:"https://picsum.photos/300/200?2"},
+      { nome:"Cem",desc:"Trabalha respiração e estabilidade.",tags:["abdomen"],img:"https://picsum.photos/300/200?3"},
+      { nome:"Roll Down",desc:"Mobiliza a coluna.",tags:["coluna"],img:"https://picsum.photos/300/200?4"},
+      { nome:"Single Leg Stretch",desc:"Controle abdominal.",tags:["abdomen"],img:"https://picsum.photos/300/200?5"},
+      { nome:"Teaser",desc:"Equilíbrio e força de centro.",tags:["core"],img:"https://picsum.photos/300/200?6"},
+      { nome:"Saw",desc:"Rotação e alongamento.",tags:["coluna","alongamento"],img:"https://picsum.photos/300/200?7"},
+      { nome:"Mermaid",desc:"Alongamento lateral.",tags:["ombro","alongamento"],img:"https://picsum.photos/300/200?9"},
+      { nome:"Spine Stretch",desc:"Alongamento ativo da coluna.",tags:["coluna","flexibilidade"],img:"https://picsum.photos/300/200?8"},
+    ];
 
-      const container = document.getElementById('serie');
-      const obs = document.getElementById('observacoes');
-      container.innerHTML = "";
-      obs.innerHTML = "";
+    // Geração Inteligente
+    document.getElementById("btnGenerate").addEventListener("click", () => {
+      const nome = nomeEl.value || "Aluno(a)";
+      const idade = parseInt(idadeEl.value || 30);
+      const nivel = nivelEl.value;
+      const objetivo = objetivoEl.value;
+      const restricoes = restricoesEl.value.toLowerCase();
 
-      // Filtro inteligente por restrição
-      let lista = banco.geral.filter(ex => {
+      let lista = base.filter(ex => {
         if (restricoes.includes("lomb")) return !ex.tags.includes("lombar");
         if (restricoes.includes("ombro")) return !ex.tags.includes("ombro");
-        if (restricoes.includes("joelho")) return !ex.tags.includes("joelho");
         return true;
       });
+      if (objetivo === "Reabilitação") lista = lista.slice(0,4);
+      if (objetivo === "Flexibilidade") lista = lista.filter(e => e.tags.includes("alongamento")||e.tags.includes("flexibilidade"));
+      if (nivel === "Iniciante") lista = lista.slice(0,3);
+      if (nivel === "Avançado") lista.push({ nome:"Roll Over",desc:"Controle e força avançada.",img:"https://picsum.photos/300/200?10" });
+      if (idade>60) lista = lista.filter(e => !e.tags.includes("core"));
 
-      // Ajuste por objetivo
-      if (objetivo === "Reabilitação") lista = lista.slice(0, 4);
-      if (objetivo === "Fortalecimento") lista = lista.slice(2, 6);
-      if (objetivo === "Flexibilidade") lista = lista.filter(ex => ex.tags.includes("alongamento") || ex.tags.includes("flexibilidade"));
-
-      // Ajuste por nível
-      if (nivel === "Iniciante") lista = lista.slice(0, 3);
-      if (nivel === "Avançado") lista.push({ nome: "Roll Over", desc: "Exercício avançado de controle e força.", img: "https://picsum.photos/300/200?10" });
-
-      // Ajuste por idade
-      if (idade > 60) lista = lista.filter(ex => !ex.tags.includes("teaser") && !ex.tags.includes("equilibrio"));
-
-      // Montagem visual
-      lista.forEach(ex => {
-        const card = document.createElement("div");
-        card.className = "flex flex-col gap-2 bg-bg-light dark:bg-bg-dark border border-border-light dark:border-border-dark rounded-lg p-3 hover:-translate-y-1 transition-transform";
-        card.innerHTML = `<img src="${ex.img}" alt="${ex.nome}" class="w-full h-32 object-cover rounded-md"><h4 class="font-bold text-accent-light dark:text-accent-dark">${ex.nome}</h4><p class="text-sm text-muted-light dark:text-muted-dark">${ex.desc}</p>`;
-        container.appendChild(card);
+      const serieDiv = document.getElementById("serie");
+      serieDiv.innerHTML = "";
+      lista.forEach(ex=>{
+        serieDiv.innerHTML += `<div class='border border-border-light dark:border-border-dark rounded-lg p-3'><img src='${ex.img}' class='w-full h-32 object-cover rounded-md'><h4 class='font-bold text-accent-light dark:text-accent-dark mt-2'>${ex.nome}</h4><p class='text-sm text-muted-light dark:text-muted-dark'>${ex.desc}</p></div>`;
       });
 
-      // Observações personalizadas
-      let nota = [];
-      if (restricoes.includes("lomb")) nota.push("⚠️ Evitar sobrecarga lombar — priorizar alongamentos e estabilização.");
-      if (restricoes.includes("ombro")) nota.push("⚠️ Reduzir amplitude nos exercícios de braço e evitar carga direta.");
-      if (idade > 60) nota.push("🕊️ Sugere-se intensidade leve e foco em mobilidade e equilíbrio.");
-      if (nivel === "Avançado") nota.push("🔥 Incluir variações desafiadoras e controle respiratório refinado.");
-
-      obs.innerHTML = `<h3 class="font-semibold text-accent-light dark:text-accent-dark mt-3 mb-1">Observações:</h3><ul class="list-disc pl-5">${nota.map(n => `<li>${n}</li>`).join("")}</ul>`;
-      document.querySelector('#resultado h2').textContent = `Série de ${nome} — ${objetivo}`;
+      document.getElementById("observacoes").innerHTML = "⚙️ Série gerada automaticamente conforme perfil e restrições.";
+      document.getElementById("btnSalvar").classList.remove("hidden");
+      document.getElementById("btnPdf").classList.remove("hidden");
     });
 
-    // 📄 Geração de PDF
-    document.getElementById('btnPdf').addEventListener('click', () => {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      doc.text("Série de Pilates Inteligente", 10, 10);
-      doc.text(document.querySelector('#resultado h2').textContent, 10, 20);
-      doc.save("serie_pilates_inteligente.pdf");
+    // Salvamento no histórico
+    const nomeEl = document.getElementById("nome");
+    const idadeEl = document.getElementById("idade");
+    const nivelEl = document.getElementById("nivel");
+    const objetivoEl = document.getElementById("objetivo");
+    const restricoesEl = document.getElementById("restricoes");
+
+    document.getElementById("btnSalvar").addEventListener("click", () => {
+      const dados = {
+        nome: nomeEl.value,
+        idade: idadeEl.value,
+        nivel: nivelEl.value,
+        objetivo: objetivoEl.value,
+        restricoes: restricoesEl.value,
+        data: new Date().toLocaleString(),
+        serie: document.getElementById("serie").innerHTML
+      };
+      let historico = JSON.parse(localStorage.getItem("historicoPilates") || "[]");
+      historico.push(dados);
+      localStorage.setItem("historicoPilates", JSON.stringify(historico));
+      alert("✅ Série salva no histórico!");
     });
+
+    // Histórico
+    function carregarHistorico() {
+      const lista = JSON.parse(localStorage.getItem("historicoPilates") || "[]");
+      const area = document.getElementById("listaHistorico");
+      const busca = document.getElementById("buscaAluno").value.toLowerCase();
+      area.innerHTML = "";
+      lista.filter(a => a.nome.toLowerCase().includes(busca)).forEach((a,i)=>{
+        area.innerHTML += `
+        <div class='border border-border-light dark:border-border-dark rounded-lg p-3'>
+          <div class='flex justify-between items-center mb-2'>
+            <div>
+              <strong>${a.nome}</strong> — ${a.objetivo}<br><span class='text-xs text-muted-light dark:text-muted-dark'>${a.data}</span>
+            </div>
+            <div class='flex gap-2'>
+              <button onclick='verSerie(${i})' class='px-2 py-1 bg-accent-light dark:bg-accent-dark text-white rounded'>Ver</button>
+              <button onclick='delSerie(${i})' class='px-2 py-1 bg-red-500 text-white rounded'>Excluir</button>
+            </div>
+          </div>
+        </div>`;
+      });
+    }
+
+    document.getElementById("buscaAluno").addEventListener("input", carregarHistorico);
+
+    window.verSerie = i => {
+      const lista = JSON.parse(localStorage.getItem("historicoPilates") || "[]");
+      const item = lista[i];
+      alert(`📋 Série de ${item.nome} (${item.objetivo}) carregada!`);
+      tabHistorico.classList.add("hidden");
+      tabAnamnese.classList.remove("hidden");
+      nomeEl.value = item.nome;
+      idadeEl.value = item.idade;
+      nivelEl.value = item.nivel;
+      objetivoEl.value = item.objetivo;
+      restricoesEl.value = item.restricoes;
+      document.getElementById("serie").innerHTML = item.serie;
+      document.getElementById("btnSalvar").classList.remove("hidden");
+      document.getElementById("btnPdf").classList.remove("hidden");
+    };
+
+    window.delSerie = i => {
+      let lista = JSON.parse(localStorage.getItem("historicoPilates") || "[]");
+      if(confirm("Excluir este registro?")) {
+        lista.splice(i,1);
+        localStorage.setItem("historicoPilates", JSON.stringify(lista));
+        carregarHistorico();
+      }
+    };
   </script>
 </body>
 </html>
