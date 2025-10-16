@@ -3,11 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Gerador Inteligente de Série de Pilates - Profª JAQUE</title>
   <link rel="icon" href="https://zeus-rr.github.io/Nine/iconer.ico">
-  <link rel="apple-touch-icon" href="https://zeus-rr.github.io/Nine/iconer.ico">
-  <title>Gerador de Série de Pilates - Anamnese</title>
 
-  <!-- Tailwind CSS -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -26,103 +25,156 @@
             soft: '0 8px 24px rgba(17, 104, 177, 0.07)',
             dark: '0 4px 16px rgba(0, 0, 0, 0.4)',
           },
-          borderRadius: {
-            xl: '12px',
-          },
         },
       },
     }
   </script>
 
-  <style>
-    body {
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-  </style>
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
-<body class="bg-bg-light text-text-light dark:bg-bg-dark dark:text-text-dark transition-colors duration-300 min-h-screen p-4">
+
+<body class="bg-bg-light text-text-light dark:bg-bg-dark dark:text-text-dark min-h-screen p-4 transition-colors duration-300">
   <div class="max-w-6xl mx-auto">
-    <!-- HEADER -->
-    <header class="flex flex-wrap items-center justify-between gap-4 mb-6">
+    <header class="flex flex-wrap items-center justify-between mb-6 gap-3">
       <div class="flex items-center gap-3">
         <img src="icone1.png" alt="Logo" class="w-12 h-10 rounded-md object-contain">
         <div>
           <h1 class="text-xl sm:text-2xl font-bold text-accent-light dark:text-accent-dark">Profª JAQUE</h1>
-          <p class="text-sm text-muted-light dark:text-muted-dark">Gerador de Série de Pilates — baseado na Anamnese</p>
+          <p class="text-sm text-muted-light dark:text-muted-dark">Gerador Inteligente de Séries de Pilates</p>
         </div>
       </div>
 
       <div class="flex flex-wrap gap-2 justify-center">
-        <button id="btnToggleTheme" class="border border-accent-light dark:border-accent-dark text-accent-light dark:text-accent-dark font-semibold rounded-lg px-4 py-2 hover:opacity-90 transition">&#9788;</button>
-        <a href="https://zeus-rr.github.io/docspdf/" target="_blank" class="border border-accent-light dark:border-accent-dark text-accent-light dark:text-accent-dark font-semibold rounded-lg px-4 py-2 hover:opacity-90 transition">Documentação</a>
-        <button id="btnGenerate" class="bg-accent-light dark:bg-accent-dark text-white font-bold rounded-lg px-4 py-2 hover:opacity-90 transition">Gerar Série</button>
+        <button id="btnTheme" class="border border-accent-light dark:border-accent-dark text-accent-light dark:text-accent-dark font-semibold rounded-lg px-4 py-2 hover:opacity-90 transition">&#9788;</button>
+        <button id="btnGenerate" class="bg-accent-light dark:bg-accent-dark text-white font-bold rounded-lg px-4 py-2 hover:opacity-90 transition">Gerar Série Inteligente</button>
         <button id="btnPdf" class="bg-accent-light dark:bg-accent-dark text-white font-bold rounded-lg px-4 py-2 hover:opacity-90 transition">Baixar PDF</button>
       </div>
     </header>
 
-    <!-- LAYOUT -->
     <div class="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-4">
-      <!-- SIDEBAR -->
+      <!-- FORMULÁRIO -->
       <aside class="bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark shadow-soft dark:shadow-dark rounded-xl p-4">
-        <h2 class="text-lg font-semibold text-accent-light dark:text-accent-dark mb-3">Dados do Aluno</h2>
+        <h2 class="text-lg font-semibold text-accent-light dark:text-accent-dark mb-3">Anamnese</h2>
 
         <label class="font-semibold">Nome</label>
-        <input type="text" class="w-full p-2 rounded-md border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark text-text-light dark:text-text-dark focus:ring-2 focus:ring-accent-light dark:focus:ring-accent-dark outline-none">
+        <input id="nome" type="text" class="w-full p-2 rounded-md border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark mb-2">
 
-        <label class="font-semibold mt-3">Objetivo</label>
-        <select class="w-full p-2 rounded-md border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark">
+        <label class="font-semibold">Idade</label>
+        <input id="idade" type="number" class="w-full p-2 rounded-md border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark mb-2">
+
+        <label class="font-semibold">Nível</label>
+        <select id="nivel" class="w-full p-2 rounded-md border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark mb-2">
+          <option>Iniciante</option>
+          <option>Intermediário</option>
+          <option>Avançado</option>
+        </select>
+
+        <label class="font-semibold">Objetivo</label>
+        <select id="objetivo" class="w-full p-2 rounded-md border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark mb-2">
           <option>Condicionamento</option>
           <option>Reabilitação</option>
-          <option>Estética</option>
+          <option>Fortalecimento</option>
+          <option>Flexibilidade</option>
         </select>
+
+        <label class="font-semibold">Restrições / Lesões</label>
+        <textarea id="restricoes" rows="2" class="w-full p-2 rounded-md border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark"></textarea>
       </aside>
 
-      <!-- MAIN -->
-      <main class="bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark shadow-soft dark:shadow-dark rounded-xl p-4">
-        <h2 class="text-lg font-semibold text-accent-light dark:text-accent-dark mb-3">Lista de Exercícios</h2>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-          <div class="flex flex-col gap-2 bg-bg-light dark:bg-bg-dark border border-border-light dark:border-border-dark rounded-lg p-3 hover:-translate-y-1 transition-transform">
-            <img src="https://picsum.photos/300/180?1" alt="Exercício" class="w-full h-32 object-cover rounded-md">
-            <h4 class="font-bold text-accent-light dark:text-accent-dark">Prancha</h4>
-            <p class="text-sm text-muted-light dark:text-muted-dark">Fortalece o core e melhora a estabilidade.</p>
-          </div>
-
-          <div class="flex flex-col gap-2 bg-bg-light dark:bg-bg-dark border border-border-light dark:border-border-dark rounded-lg p-3 hover:-translate-y-1 transition-transform">
-            <img src="https://picsum.photos/300/180?2" alt="Exercício" class="w-full h-32 object-cover rounded-md">
-            <h4 class="font-bold text-accent-light dark:text-accent-dark">Ponte de Ombros</h4>
-            <p class="text-sm text-muted-light dark:text-muted-dark">Trabalha glúteos e região lombar.</p>
-          </div>
-
-          <div class="flex flex-col gap-2 bg-bg-light dark:bg-bg-dark border border-border-light dark:border-border-dark rounded-lg p-3 hover:-translate-y-1 transition-transform">
-            <img src="https://picsum.photos/300/180?3" alt="Exercício" class="w-full h-32 object-cover rounded-md">
-            <h4 class="font-bold text-accent-light dark:text-accent-dark">Teaser</h4>
-            <p class="text-sm text-muted-light dark:text-muted-dark">Melhora controle abdominal e equilíbrio.</p>
-          </div>
-        </div>
+      <!-- RESULTADO -->
+      <main id="resultado" class="bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark shadow-soft dark:shadow-dark rounded-xl p-4">
+        <h2 class="text-lg font-semibold text-accent-light dark:text-accent-dark mb-3">Série Inteligente Gerada</h2>
+        <div id="serie" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+        <div id="observacoes" class="mt-4 text-sm text-muted-light dark:text-muted-dark"></div>
       </main>
     </div>
-
-    <!-- FOOTER -->
-    <footer class="flex flex-wrap justify-between items-center border-t border-border-light dark:border-border-dark mt-8 pt-4 text-sm text-muted-light dark:text-muted-dark text-center gap-2">
-      <div>PDF gerado localmente pelo navegador (jsPDF). Algumas imagens podem ser omitidas por CORS.</div>
-      <div>© Gerador de Séries — Pilates</div>
-    </footer>
   </div>
 
   <script>
-    // Alternância manual do tema
-    const btnToggleTheme = document.getElementById('btnToggleTheme');
-    const body = document.body;
+    // 🌗 Controle de tema com persistência
+    const btnTheme = document.getElementById('btnTheme');
+    btnTheme.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+    if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
 
-    btnToggleTheme.addEventListener('click', () => {
-      body.classList.toggle('dark');
-      localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+    // Banco de exercícios por categoria
+    const banco = {
+      geral: [
+        { nome: "Prancha", desc: "Fortalece o core e melhora a postura.", tags: ["core", "geral"], img: "https://picsum.photos/300/200?1" },
+        { nome: "Ponte", desc: "Ativa glúteos e lombar.", tags: ["lombar", "gluteo"], img: "https://picsum.photos/300/200?2" },
+        { nome: "Cem", desc: "Trabalha respiração e estabilidade abdominal.", tags: ["abdomen"], img: "https://picsum.photos/300/200?3" },
+        { nome: "Roll Down", desc: "Mobiliza a coluna.", tags: ["coluna"], img: "https://picsum.photos/300/200?4" },
+        { nome: "Single Leg Stretch", desc: "Controle e flexão abdominal.", tags: ["abdomen"], img: "https://picsum.photos/300/200?5" },
+        { nome: "Teaser", desc: "Equilíbrio e força de centro.", tags: ["core", "equilibrio"], img: "https://picsum.photos/300/200?6" },
+        { nome: "Saw", desc: "Rotação e alongamento.", tags: ["coluna", "alongamento"], img: "https://picsum.photos/300/200?7" },
+        { nome: "Mermaid", desc: "Alongamento lateral.", tags: ["ombro", "alongamento"], img: "https://picsum.photos/300/200?9" },
+        { nome: "Spine Stretch", desc: "Alongamento ativo da coluna.", tags: ["coluna", "flexibilidade"], img: "https://picsum.photos/300/200?8" },
+      ]
+    };
+
+    // 🧠 Função inteligente de geração
+    document.getElementById('btnGenerate').addEventListener('click', () => {
+      const nome = document.getElementById('nome').value || "Aluno(a)";
+      const idade = parseInt(document.getElementById('idade').value || 30);
+      const nivel = document.getElementById('nivel').value;
+      const objetivo = document.getElementById('objetivo').value;
+      const restricoes = document.getElementById('restricoes').value.toLowerCase();
+
+      const container = document.getElementById('serie');
+      const obs = document.getElementById('observacoes');
+      container.innerHTML = "";
+      obs.innerHTML = "";
+
+      // Filtro inteligente por restrição
+      let lista = banco.geral.filter(ex => {
+        if (restricoes.includes("lomb")) return !ex.tags.includes("lombar");
+        if (restricoes.includes("ombro")) return !ex.tags.includes("ombro");
+        if (restricoes.includes("joelho")) return !ex.tags.includes("joelho");
+        return true;
+      });
+
+      // Ajuste por objetivo
+      if (objetivo === "Reabilitação") lista = lista.slice(0, 4);
+      if (objetivo === "Fortalecimento") lista = lista.slice(2, 6);
+      if (objetivo === "Flexibilidade") lista = lista.filter(ex => ex.tags.includes("alongamento") || ex.tags.includes("flexibilidade"));
+
+      // Ajuste por nível
+      if (nivel === "Iniciante") lista = lista.slice(0, 3);
+      if (nivel === "Avançado") lista.push({ nome: "Roll Over", desc: "Exercício avançado de controle e força.", img: "https://picsum.photos/300/200?10" });
+
+      // Ajuste por idade
+      if (idade > 60) lista = lista.filter(ex => !ex.tags.includes("teaser") && !ex.tags.includes("equilibrio"));
+
+      // Montagem visual
+      lista.forEach(ex => {
+        const card = document.createElement("div");
+        card.className = "flex flex-col gap-2 bg-bg-light dark:bg-bg-dark border border-border-light dark:border-border-dark rounded-lg p-3 hover:-translate-y-1 transition-transform";
+        card.innerHTML = `<img src="${ex.img}" alt="${ex.nome}" class="w-full h-32 object-cover rounded-md"><h4 class="font-bold text-accent-light dark:text-accent-dark">${ex.nome}</h4><p class="text-sm text-muted-light dark:text-muted-dark">${ex.desc}</p>`;
+        container.appendChild(card);
+      });
+
+      // Observações personalizadas
+      let nota = [];
+      if (restricoes.includes("lomb")) nota.push("⚠️ Evitar sobrecarga lombar — priorizar alongamentos e estabilização.");
+      if (restricoes.includes("ombro")) nota.push("⚠️ Reduzir amplitude nos exercícios de braço e evitar carga direta.");
+      if (idade > 60) nota.push("🕊️ Sugere-se intensidade leve e foco em mobilidade e equilíbrio.");
+      if (nivel === "Avançado") nota.push("🔥 Incluir variações desafiadoras e controle respiratório refinado.");
+
+      obs.innerHTML = `<h3 class="font-semibold text-accent-light dark:text-accent-dark mt-3 mb-1">Observações:</h3><ul class="list-disc pl-5">${nota.map(n => `<li>${n}</li>`).join("")}</ul>`;
+      document.querySelector('#resultado h2').textContent = `Série de ${nome} — ${objetivo}`;
     });
 
-    if (localStorage.getItem('theme') === 'dark') {
-      body.classList.add('dark');
-    }
+    // 📄 Geração de PDF
+    document.getElementById('btnPdf').addEventListener('click', () => {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.text("Série de Pilates Inteligente", 10, 10);
+      doc.text(document.querySelector('#resultado h2').textContent, 10, 20);
+      doc.save("serie_pilates_inteligente.pdf");
+    });
   </script>
 </body>
 </html>
