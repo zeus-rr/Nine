@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -328,7 +327,7 @@
     container.innerHTML = '';
     EXERCISES.forEach(ex => {
       const link = ex.videoUrl || generateSearchUrl(ex.name);
-      const linkText = ex.videoUrl ? 'Ver Mini Vídeo (YouTube)' : 'Buscar Detalhes (Internet)';
+      const linkText = ex.videoUrl ? 'Ver (YouTube)' : 'Buscar (Internet)';
 
       const el = document.createElement('div');
       el.className = 'ex card';
@@ -344,7 +343,7 @@
           </div>
           
           <div style="margin-top:8px;display:flex;gap:8px;align-items:center;">
-            <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" data-id="${ex.id}" /> Selecionar</label>
+            <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" data-id="${ex.id}" /> Escolher</label>
             <a href="${link}" target="_blank" class="btn ghost">${linkText}</a>
           </div>
         </div>
@@ -603,3 +602,4 @@
 </body>
 
 </html>
+
